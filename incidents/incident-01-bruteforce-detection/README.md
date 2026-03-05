@@ -43,9 +43,9 @@ The timeline below shows repeated failed `su` authentication attempts targeting 
 ### Example Failed Authentication Event
 This log entry shows a failed attempt to switch user to `hacker`.
 
-![Failed SU Attempt](../../screenshots/incident-01-bruteforce-failed-su-detail.png)
+![Failed SU Attempt](../../screenshots/incident-01-su-activity-timeline.png)
 
 ### Successful Authentication Event
-This log confirms a successful session was eventually opened for the user `hacker`.
+This log confirms a successful session was eventually opened for the user **hacker**.
 
 ![Successful SU Event](../../screenshots/incident-01-su-success.png)
