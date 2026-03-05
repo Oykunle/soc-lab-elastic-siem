@@ -35,15 +35,19 @@ Centralized logging in Elastic SIEM enabled rapid detection of brute-force behav
 
 ## Investigation Evidence
 
-### Brute Force Login Attempts Detected
-The timeline below shows repeated failed `su` authentication attempts targeting the **hacker** account.
+### 1. Authentication Attempt Timeline
 
-![Brute Force Timeline](../../screenshots/incident-01-su-activity-timeline.png)
-
-### Authentication Attempt Timeline
-The screenshot below shows multiple `su` authentication attempts in a short time window, indicating a potential brute-force attack.
+The SIEM timeline shows repeated `su` authentication attempts targeting the **hacker** account.
 
 ![Authentication Timeline](../../screenshots/incident-01-su-activity-timeline.png)
+
+---
+
+### 2. Successful Authentication Event
+
+The log below confirms a successful `su` session was eventually opened for the **hacker** account.
+
+![Successful SU Event](../../screenshots/incident-01-su-success.png)
 
 ### Successful Authentication Event
 This log confirms a successful session was eventually opened for the user **hacker**.
