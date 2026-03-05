@@ -32,3 +32,20 @@ The compromised or targeted account should be:
 
 ## Lessons Learned
 Centralized logging in Elastic SIEM enabled rapid detection of brute-force behavior and supports incident response investigation.
+
+## Investigation Evidence
+
+### Brute Force Login Attempts Detected
+The timeline below shows repeated failed `su` authentication attempts targeting the **hacker** account.
+
+![Brute Force Timeline](../../screenshots/incident-01-su-activity-timeline.png)
+
+### Example Failed Authentication Event
+This log entry shows a failed attempt to switch user to `hacker`.
+
+![Failed SU Attempt](../../screenshots/incident-01-bruteforce-failed-su-detail.png)
+
+### Successful Authentication Event
+This log confirms a successful session was eventually opened for the user `hacker`.
+
+![Successful SU Event](../../screenshots/incident-01-su-success.png)
