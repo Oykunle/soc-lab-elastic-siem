@@ -44,6 +44,7 @@ This lab demonstrates:
 | Incident 01 | Brute force authentication attempts detected against local user account |
 | Incident 02 | Privilege escalation activity using sudo detected |
 | Incident 03 | Repeated `su` authentication failures indicating brute-force behavior |
+| Incident 04 | Unauthorized user account creation detected using `useradd` command |
 
 All investigations include:
 
@@ -60,12 +61,13 @@ Location:
 
 # Detection Rules
 
-Detection rules written using **Kibana Query Language (KQL)**.
+Detection rules written using **Kibana Query Language (KQL)** to identify suspicious activity within the Elastic SIEM environment.
 
 | Detection | Description |
 |----------|-------------|
-| Brute Force Detection | Detects multiple failed authentication attempts |
-| Privilege Escalation Detection | Detects sudo usage and root session activity |
+| Brute Force Detection | Detects multiple failed authentication attempts in Linux authentication logs |
+| Privilege Escalation Detection | Detects `sudo` usage and root session activity |
+| Unauthorized User Creation Detection | Detects execution of the `useradd` command which may indicate persistence |
 
 Location:
 
@@ -92,13 +94,14 @@ Examples include:
 
 # Future Improvements
 
-Planned additions to this SOC lab include:
+Planned enhancements for this SOC lab include:
 
-- Suspicious user account creation detection
-- Persistence detection
 - SSH brute force detection
-- Alert rule automation
-- MITRE ATT&CK technique mapping
+- Suspicious user account creation alerts
+- Persistence detection techniques
+- Network reconnaissance detection (Nmap scanning)
+- Alert rule automation within Elastic SIEM
+- MITRE ATT&CK technique mapping for incidents
 
 ---
 
