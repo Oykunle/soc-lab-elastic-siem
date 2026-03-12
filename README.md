@@ -47,6 +47,7 @@ This lab demonstrates:
 | Incident 02 | Privilege escalation activity using sudo detected |
 | Incident 03 | Repeated `su` authentication failures indicating brute-force behavior |
 | Incident 04 | Unauthorized user account creation detected using `useradd` command |
+| Incident 05 | SSH authentication failures detected indicating possible brute force attack |
 
 All investigations include:
 
@@ -69,7 +70,9 @@ The simulated incidents in this lab align with known adversary techniques docume
 | Incident 02 | T1548 – Abuse Elevation Control Mechanism | Privilege escalation using sudo |
 | Incident 03 | T1110 – Brute Force | Repeated `su` authentication failures indicating brute force attempts |
 | Incident 04 | T1136 – Create Account | Unauthorized user account creation detected through execution of the `useradd` command |
+| Incident 05 | T1110 – Brute Force | Multiple SSH authentication failures detected for user `hacker` |
 
+Reference framework: MITRE ATT&CK
 ---
 
 # Incident Severity Classification
@@ -82,6 +85,7 @@ Each simulated incident is categorized based on potential impact to system secur
 | Incident 02 | High | Privilege escalation using sudo grants root access |
 | Incident 03 | Medium | Repeated `su` authentication failures suggest credential guessing |
 | Incident 04 | High | Unauthorized user account creation indicates persistence attempt |
+| Incident 05 | Medium | Multiple SSH authentication failures detected for user `hacker` indicating potential brute force activity |
 
 ---
 
@@ -94,6 +98,7 @@ Detection rules written using **Kibana Query Language (KQL)** to identify suspic
 | Brute Force Detection | `event.dataset : "system.auth" AND message : ("FAILED SU" OR "authentication failure")` | Detects multiple failed authentication attempts in Linux logs |
 | Privilege Escalation Detection | `event.dataset : "system.auth" AND message : "sudo"` | Detects sudo usage and potential privilege escalation |
 | Unauthorized User Creation Detection | `process.name : "useradd"` | Detects creation of new user accounts |
+| SSH Brute Force Detection | `event.dataset : "system.auth" AND message : "authentication failure"` | Detects SSH authentication failures |
 
 Location: `/detections/`
 
