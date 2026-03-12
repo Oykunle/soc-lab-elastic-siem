@@ -28,11 +28,13 @@ Logs monitored:
 This lab demonstrates:
 
 - SIEM log analysis
+- Linux log analysis
 - Authentication monitoring
+- Threat detection & basic threat hunting
 - Privilege escalation detection
 - Brute force attack detection
-- Incident documentation
 - Detection rule creation using KQL
+- Incident documentation
 - Security investigation workflows
 
 ---
