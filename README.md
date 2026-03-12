@@ -53,9 +53,33 @@ All investigations include:
 - Security analysis
 - Recommended response actions
 
-Location:
+Location: `/incidents/`
 
- /incidents/
+---
+
+# MITRE ATT&CK Mapping
+
+The simulated incidents in this lab align with known adversary techniques documented in the MITRE ATT&CK framework.
+
+| Incident | MITRE Technique | Description |
+|--------|----------------|-------------|
+| Incident 01 | T1110 – Brute Force | Multiple authentication failures detected against a user account |
+| Incident 02 | T1548 – Abuse Elevation Control Mechanism | Privilege escalation using sudo |
+| Incident 03 | T1110 – Brute Force | Repeated `su` authentication failures indicating brute force attempts |
+| Incident 04 | T1136 – Create Account | Unauthorized user account creation detected through execution of the `useradd` command |
+
+---
+
+# Incident Severity Classification
+
+Each simulated incident is categorized based on potential impact to system security.
+
+| Incident | Severity | Reason |
+|--------|---------|--------|
+| Incident 01 | Medium | Multiple authentication failures indicating possible brute force |
+| Incident 02 | High | Privilege escalation using sudo grants root access |
+| Incident 03 | Medium | Repeated `su` authentication failures suggest credential guessing |
+| Incident 04 | High | Unauthorized user account creation indicates persistence attempt |
 
 ---
 
@@ -63,15 +87,13 @@ Location:
 
 Detection rules written using **Kibana Query Language (KQL)** to identify suspicious activity within the Elastic SIEM environment.
 
-| Detection | Description |
-|----------|-------------|
-| Brute Force Detection | Detects multiple failed authentication attempts in Linux authentication logs |
-| Privilege Escalation Detection | Detects `sudo` usage and root session activity |
-| Unauthorized User Creation Detection | Detects execution of the `useradd` command which may indicate persistence |
+| Detection | KQL Query | Description |
+|----------|-----------|-------------|
+| Brute Force Detection | `event.dataset : "system.auth" AND message : ("FAILED SU" OR "authentication failure")` | Detects multiple failed authentication attempts in Linux logs |
+| Privilege Escalation Detection | `event.dataset : "system.auth" AND message : "sudo"` | Detects sudo usage and potential privilege escalation |
+| Unauthorized User Creation Detection | `process.name : "useradd"` | Detects creation of new user accounts |
 
-Location:
-
-/detections/
+Location: `/detections/`
 
 ---
 
@@ -79,9 +101,7 @@ Location:
 
 Security investigations include supporting evidence from Elastic SIEM dashboards.
 
-Location:
-
-/screenshots/
+Location: `/screenshots/`
 
 Examples include:
 
@@ -106,6 +126,8 @@ Planned enhancements for this SOC lab include:
 ---
 
 # Author
+
+GitHub: https://github.com/Oykunle/soc-lab-elastic-siem
 
 Oyekunle Alabi  
 Cybersecurity Student — Ball State University  
