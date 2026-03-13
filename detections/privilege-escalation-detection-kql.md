@@ -1,38 +1,46 @@
 # Privilege Escalation Detection (sudo)
 
-## Detection Goal
+## Description
+This detection identifies when a user gains root privileges using the `sudo` command. Privilege escalation is a common step attackers take after gaining initial access to a system.
 
-Detect when a user gains root privileges using `sudo`.
+Monitoring `sudo` activity helps detect unauthorized administrative actions and potential system compromise.
 
-Privilege escalation is a common step attackers take after gaining initial access.
+---
 
-## KQL Detection Rule
+## Data Source
 
-process.name: "sudo" AND message: "session opened for user root"
+Elastic Agent — `system.auth` logs from Linux authentication events.
 
-## Log Source
+---
 
-Elastic SIEM  
-Dataset: system.auth
+## Detection Query (KQL)
+
+```kql
+process.name : "sudo" AND message : "session opened for user root"
+```
+---
 
 ## Example Event
 
 pam_unix(sudo:session): session opened for user root(uid=0) by oye(uid=1000)
 
 ## Investigation Steps
-
-1. Identify the user executing sudo
-2. Check timestamp of escalation
-3. Review commands executed after privilege escalation
-4. Confirm if activity is authorized
+1. Identify the user account executing the sudo command
+2. Review the timestamp of the privilege escalation event
+3. Examine commands executed after root access was obtained
+4. Confirm whether the activity was legitimate administrative behavior
 
 ## Severity
 
-Medium → High depending on context.
+Medium → High depending on context
 
-Unauthorized privilege escalation may indicate account compromise or attacker lateral movement.
+Because:
+- Root privileges were granted to a user account
+- Privileged access could be abused if credentials are compromised
+- Unauthorized escalation may indicate attacker activity
+---
 
 ## MITRE ATT&CK Mapping
 
-T1068 – Exploitation for Privilege Escalation  
-T1548 – Abuse Elevation Control Mechanism
+Technique: T1548 — Abuse Elevation Control Mechanism
+Technique: T1068 — Exploitation for Privilege Escalation
