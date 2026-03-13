@@ -1,55 +1,72 @@
 # Incident 01 — Brute Force Detection
 
 ## Summary
-Multiple failed authentication attempts were detected targeting the user **hacker** within a short time window, indicating a potential brute-force attack.
+Multiple failed authentication attempts were detected targeting the user **hacker** within a short period of time. The repeated login failures suggest a possible brute-force attack where an attacker attempts to guess a user's password by trying multiple combinations.
 
 ## Evidence
-Elastic SIEM logs showed repeated:
 
-- event.dataset: system.auth  
-- process.name: su  
-- event.outcome: failure  
+Elastic SIEM logs showed repeated authentication failures with the following characteristics:
 
-More than **10 failures within ~30 seconds** were observed.
+- `event.dataset: system.auth`
+- `process.name: su`
+- `event.outcome: failure`
+
+More than **10 authentication failures occurred within approximately 30 seconds**, which is unusual for normal user behavior.
+
+---
 
 ## Analysis
-This behavior is not consistent with normal human login activity and suggests automated password-guessing.
+
+The pattern of repeated login failures within a short time window is not consistent with normal human activity. This behavior is commonly associated with brute-force password guessing attempts.
+
+The activity targeted the **hacker** account using the `su` command, which indicates an attempt to switch user privileges on the system.
+
+Eventually, a successful authentication event was recorded, indicating that the attacker was able to obtain valid credentials and open a session for the targeted account.
+
+---
 
 ## Severity
+
 **High**
 
 Because:
-- Repeated authentication failures
-- Targeting a privileged or local account
-- Potential for privilege escalation if successful
+
+- Multiple authentication failures occurred in a short time window
+- The attack targeted a local user account
+- A successful authentication event followed the failed attempts
+
+---
 
 ## Containment Action
-The compromised or targeted account should be:
 
-- **Locked or disabled immediately**
-- Source IP investigated and blocked if malicious
-- System monitored for persistence attempts
+To reduce the risk of further compromise, the following response actions are recommended:
+
+- Lock or temporarily disable the targeted account
+- Investigate the source of the login attempts
+- Monitor the system for additional suspicious activity or persistence attempts
+
+---
 
 ## Lessons Learned
-Centralized logging in Elastic SIEM enabled rapid detection of brute-force behavior and supports incident response investigation.
+
+Centralized log collection in Elastic SIEM enables security analysts to quickly detect abnormal authentication behavior such as brute-force attacks.
+
+By monitoring authentication logs and investigating suspicious login patterns, analysts can identify potential compromises and respond before attackers gain long-term access to the system.
+
+---
 
 ## Investigation Evidence
 
-### 1. Authentication Attempt Timeline
+### Authentication Attempt Timeline
 
-The SIEM timeline shows repeated `su` authentication attempts targeting the **hacker** account.
+The SIEM timeline below shows repeated `su` authentication attempts targeting the **hacker** account.
 
 ![Authentication Timeline](../../screenshots/incident-01-su-activity-timeline.png)
 
 ---
 
-### 2. Successful Authentication Event
-
-The log below confirms a successful `su` session was eventually opened for the **hacker** account.
-
-![Successful SU Event](../../screenshots/incident-01-su-success.png)
-
 ### Successful Authentication Event
-This log confirms a successful session was eventually opened for the user **hacker**.
+
+The log below confirms that a successful `su` session was eventually opened for the **hacker** account.
 
 ![Successful SU Event](../../screenshots/incident-01-su-success.png)
