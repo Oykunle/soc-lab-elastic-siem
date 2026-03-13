@@ -1,37 +1,41 @@
 # Brute Force Authentication Detection (Elastic SIEM)
 
 ## Description
-Detects repeated failed authentication attempts using the `su` command which may indicate a brute force attack.
+This detection identifies repeated failed authentication attempts using the `su` command. A high number of failures in a short period of time may indicate a brute-force password attack targeting a local user account.
 
 ## Data Source
-Elastic Agent — system.auth logs
+Elastic Agent — `system.auth` logs collected from Linux authentication events.
 
 ## Detection Query (KQL)
 
-process.name: "su" AND message: "FAILED"
+```kql
+process.name : "su" AND message : "FAILED"
+```
+---
 
 ## Detection Logic
 
-Trigger an alert when:
+Generate an alert when:
+	•	More than 5 failed authentication attempts
+	•	Occur within 1 minute
+	•	Target the same user account
 
-- More than 5 failed authentication attempts
-- Within 1 minute
-- Targeting the same user account
+This behavior may indicate automated password guessing or repeated login attempts against a privileged account.
 
 ## MITRE ATT&CK Mapping
 
-Technique: T1110  
+Technique: T1110 — Brute Force
 Tactic: Credential Access
 
-## Investigation Steps
+## Investigation Steps:
 
-1. Check authentication logs in Kibana Discover
-2. Identify the targeted account
-3. Determine if a successful login occurred afterward
-4. Investigate the host performing the authentication attempts
+1. Review authentication logs in Kibana Discover
+2. Identify the targeted user account
+3. Check whether a successful login occurred after the failures
+4. Investigate the host or session generating the authentication attempts
 
 ## Response Actions
-
-- Lock the targeted account
-- Investigate source IP
-- Monitor system for persistence attempts
+	
+- Temporarily lock or disable the targeted account
+- Investigate the source host or IP address
+- Continue monitoring the system for additional authentication attempts or persistence activity
