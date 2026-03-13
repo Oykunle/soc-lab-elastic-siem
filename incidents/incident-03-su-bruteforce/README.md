@@ -46,17 +46,18 @@ Although no successful authentication was recorded during this investigation, re
 Medium
 
 Because:
-	•	Multiple authentication failures occurred in a short timeframe
-	•	The login attempts targeted a local user account
-	•	Continued attempts could eventually result in account compromise
+
+- Multiple authentication failures occurred in a short timeframe
+- The login attempts targeted a local user account
+- Continued attempts could eventually result in account compromise
 ---
 
 ## Recommended Response
 
-•	Investigate activity related to the targeted user account
-•	Monitor the system for additional authentication attempts
-•	Implement account lockout policies after repeated login failures
-•	Review authentication logs for other suspicious behavior
+- Investigate activity related to the targeted user account
+- Monitor the system for additional authentication attempts
+- Implement account lockout policies after repeated login failures
+- Review authentication logs for other suspicious behavior
 
 
 
