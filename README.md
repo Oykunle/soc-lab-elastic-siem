@@ -1,8 +1,22 @@
 # SOC Lab — Elastic SIEM Detection & Incident Response
 
-This project documents a personal Security Operations Center (SOC) home lab built using the Elastic Stack to simulate, detect, and investigate security incidents.
+Technologies: Elastic Stack, Kibana, KQL, Linux, SIEM
 
-The purpose of this lab is to develop practical blue team skills including log analysis, threat detection, and incident investigation.
+This project simulates a Security Operations Center (SOC) environment using the Elastic Stack to detect, analyze, and respond to real-world attack scenarios on a Linux system.
+
+The lab focuses on developing practical blue team skills including threat detection, log analysis, and incident response using SIEM tools.
+
+---
+
+# SOC Investigation Workflow
+
+Each incident follows a structured SOC investigation process:
+
+1. Alert identification in Kibana (SIEM)
+2. Log analysis using KQL queries
+3. Correlation of timestamps, usernames, and source IP addresses
+4. Identification of suspicious or malicious behavior
+5. Documentation of findings and recommended response actions
 
 ---
 
@@ -30,7 +44,7 @@ This lab demonstrates:
 - SIEM log analysis
 - Linux log analysis
 - Authentication monitoring
-- Threat detection & basic threat hunting
+- Threat detection and basic threat hunting
 - Privilege escalation detection
 - Brute force attack detection
 - Detection rule creation using KQL
@@ -89,7 +103,7 @@ Each simulated incident is categorized based on potential impact to system secur
 
 ---
 
-# Detection Rules
+# Detection Engineering (KQL Rules)
 
 Detection rules written using **Kibana Query Language (KQL)** to identify suspicious activity within the Elastic SIEM environment.
 
@@ -123,12 +137,31 @@ Examples include:
 
 Planned enhancements for this SOC lab include:
 
-- SSH brute force detection
-- Suspicious user account creation alerts
+- Detection for suspicious login times (off-hours access)
+- Detection for password spraying attacks across multiple accounts
 - Persistence detection techniques
 - Network reconnaissance detection (Nmap scanning)
-- Alert rule automation within Elastic SIEM
-- MITRE ATT&CK technique mapping for incidents
+- Alert rule automation and tuning within Elastic SIEM
+- Expanded MITRE ATT&CK mapping across detections
+
+---
+
+# Indicators of Compromise (IOCs)
+
+The following indicators were identified during investigations:
+
+- Repeated failed authentication attempts from a single IP address
+- Unauthorized execution of `useradd` command
+- Suspicious use of `sudo` for privilege escalation
+- Multiple authentication failures targeting privileged accounts
+
+These indicators were used to support detection logic and incident analysis.
+
+---
+
+# Why This Project Matters
+
+This project demonstrates practical SOC analyst skills including detection engineering, log analysis, and incident investigation. It reflects real-world security monitoring scenarios and prepares for entry-level SOC Analyst roles.
 
 ---
 
